@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+:root {
+  --primary-bg-color: #E8F1FF;
+  --secondary-bg-color: #F0FAF9;
+  --tertiary-bg-color: #D6EFFF;
+
+  --primary-text-color: #0F3C7E;
+  --secondary-text-color: #1DA1F2;
+  --tertiary-text-color: #006BAD;
+  --white-text-color: #080e20;
+
+  --button-bg-color: linear-gradient(to right, #1DA1F2, #006BAD);
+  --button-text-color: #ffffff;
+  --button-hover-bg-color: linear-gradient(to right, #006BAD, #1DA1F2);
+  --button-hover-text-color: #ffffff;
+
+  --primary-gradient: linear-gradient(135deg, #1DA1F2, #006BAD);
+  --secondary-gradient: linear-gradient(to right, #D38312, #A83279);
+  --hero-gradient: radial-gradient(circle, #E8F1FF, #ffffff);
+
+  --primary-shadow: 0px 4px 12px rgba(138, 165, 206, 0.2);
+  --secondary-shadow: 0px 2px 8px rgba(29, 161, 242, 0.1);
+}
+
+
+
+
+
+[data-theme="dark"] {
+  --primary-bg-color: #061529;
+  --secondary-bg-color: #1E293B;
+  --tertiary-bg-color: #2a3544;
+
+  --primary-text-color: #E2E8F0;
+  --secondary-text-color: #7DD3FC;
+  --tertiary-text-color: #3cb4e7;
+  --white-text-color:#f3f6f8;
+
+  --button-bg-color: linear-gradient(to right, #38BDF8, #0EA5E9);
+  --button-text-color: #ffffff;
+  --button-hover-bg-color: linear-gradient(to right, #0EA5E9, #38BDF8);
+  --button-hover-text-color: #ffffff;
+
+  --primary-gradient: linear-gradient(135deg, #38BDF8, #0EA5E9);
+  --secondary-gradient: linear-gradient(to right, #FFB347, #FF416C);
+  --hero-gradient: radial-gradient(circle, #1E293B, #0F172A);
+
+  --primary-shadow: 0px 4px 12px rgba(14, 165, 233, 0.15);
+  --secondary-shadow: 0px 2px 8px rgba(56, 189, 248, 0.1);
+}

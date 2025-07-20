@@ -55,7 +55,7 @@ export default function NavigationBar() {
 
   return (
     <>
-      <nav className="py-1 fixed shadow-lg top-0 left-0 w-full bg-slate-50 z-50">
+      <nav className="py-1 fixed shadow-lg top-0 left-0 w-full bg-transparent z-50">
         <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
           {/* Logo */}
           <Link to={"/"} className="text-xl font-bold flex items-center">
@@ -180,11 +180,8 @@ export default function NavigationBar() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -40 }}
           transition={{ duration: 0.5 }}
-          className="md:hidden fixed top-14 left-0 w-full z-50 bg-slate-50 shadow-md p-4 flex flex-col items-center mt-4 space-y-4"
+          className="md:hidden fixed bottom-0 left-0 w-full z-50 bg-slate-50 shadow-md p-4 flex flex-col items-center mt-4 space-y-4"
         >
-          <Link to="/book" className="hover:text-rose-500 text-cyan-800 font-medium" onClick={() => setIsOpen(false)}>Books and Exam</Link>
-          <Link to="/ask" className="hover:text-rose-500 text-cyan-800 font-medium" onClick={() => setIsOpen(false)}>Q/A</Link>
-          <Link to="/about" className="hover:text-rose-500 text-cyan-800 font-medium" onClick={() => setIsOpen(false)}>About</Link>
 
           {isLoading ? (
             <p className="text-cyan-800 font-medium">Loading...</p>
@@ -202,10 +199,6 @@ export default function NavigationBar() {
             </div>
           )}
 
-          <div className="flex items-center border border-gray-300 rounded-full px-3 py-1">
-            <Search className="text-gray-500" size={20} />
-            <input type="text" placeholder="Search..." className="ml-2 outline-none bg-transparent w-52 md:w-48 lg:w-72" />
-          </div>
         </motion.nav>
       )}
     </>

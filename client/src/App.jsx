@@ -12,6 +12,7 @@ import Homepage from "./pages/CommonPages/Homepage/Homepage";
 import Product_details_main from "./pages/CommonPages/Productdetails/Product_details_main";
 import Catagorypage from "./pages/CommonPages/Catagoey/Catagorypage";
 import Cartpage from "./pages/CommonPages/Cart/Cartpage";
+import AccountPage from "./pages/CommonPages/Account/Accountpage";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,8 @@ const router = createBrowserRouter([
       { path :"", element : <Homepage/> },
       { path : "/product_details/:productId", element:<Product_details_main/>},
       { path : "/product/:category", element: <Catagorypage /> } ,
-      { path: "/cart", element: <Cartpage /> }
+      { path: "/cart", element: <Cartpage /> },
+      { path : "/account", element : <AccountPage/>}
     ]
   }
 ]);

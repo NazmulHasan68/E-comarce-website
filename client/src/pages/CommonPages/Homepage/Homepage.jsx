@@ -13,7 +13,7 @@ import useCategoryProducts from "@/components/hook/useCategoryProducts";
 export default function Homepage() {
   const tshirts = useCategoryProducts("T-shirt");
   const shoulder = useCategoryProducts("Drop shoulder");
-  const pangabi = useCategoryProducts("Pangabi");
+  const panjabi = useCategoryProducts("Panjabi");
   const shirts = useCategoryProducts("Shirt");
   const hoodies = useCategoryProducts("Hoodie");
 
@@ -31,7 +31,7 @@ export default function Homepage() {
 
       <AdsCarousel data={ads} />
 
-      <HomeStyleshCart data={pangabi} title="Pangabi" />
+      <HomeStyleshCart data={panjabi} title="Panjabi" />
       <VerticalProductCarousel data={shirts} title="Shirt" />
       <ProductCarousel data={hoodies} title="Hoodie" />
 

@@ -1,43 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Menu, X, LogOut } from "lucide-react";
-import Logo from  "@/assets/react.svg";
+import { Menu, X, LogOut, Sun, Moon, Home, ShoppingCart, User } from "lucide-react";
+import Logo from "@/assets/react.svg";
 import { motion } from "framer-motion";
 import { useLoadUserQuery, useLogoutUserMutation } from "@/redux/ApiController/authApi";
 import { toast } from "sonner";
-
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import Sidebar from "./Sidebar"; // ⬅️ Sidebar component
 
 export default function NavigationBar() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate()
-
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const { data, isLoading } = useLoadUserQuery();
   const [logoutUser] = useLogoutUserMutation();
 
-  const searchHandler = (e) =>{
-    e.preventDefault();
+  const [theme, setTheme] = useState(() => {
+    return document.documentElement.getAttribute("data-theme") || "light";
+  });
 
-   
-    navigate(`/search?query=${searchQuery}`)
-    
-    setSearchQuery("")
-  }
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      setTheme(savedTheme);
+    }
+  }, []);
 
+  const toggleTheme = () => {
+    const html = document.documentElement;
+    const newTheme = theme === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", newTheme);
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
 
   const handleLogout = async () => {
     try {
-      await logoutUser();  
-      toast.success("Logout successfully!")
+      await logoutUser();
+      toast.success("Logout successfully!");
       setTimeout(() => {
         window.location.reload();
       }, 2000);
@@ -46,161 +45,79 @@ export default function NavigationBar() {
     }
   };
 
-
-  const toggleTheme = () => {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    html.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
-  };
-
   return (
     <>
-      <nav className="py-1 fixed shadow-lg top-0 left-0 w-full bg-transparent z-50">
-        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
-          {/* Logo */}
-          <Link to={"/"} className="text-xl font-bold flex items-center">
-            <img src={Logo} className="h-14 md:h-16 object-cover" alt="Logo" />
-            <p className="text-sky-600 text-xl font-bold md:text-lg lg:text-2xl">BD Educators</p>
+      <nav className="py-1 fixed top-0 left-0 w-full bg-transparent dark:bg-slate-900 z-50 shadow-2xl">
+        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-14">
+          <Link to="/" className="flex items-center space-x-2">
+            <img src={Logo} className="h-8 w-8" alt="Logo" />
+            <span className="text-sky-600 text-xl font-bold">Shadow Shop</span>
           </Link>
 
-
-          {/* Navigation Links (Desktop) */}
-          <div className="hidden text-xl md:text-sm lg:text-xl md:flex space-x-6 items-center">
-            <Link to="/book" className="hover:text-rose-600 text-cyan-800 font-medium">Books & Exam</Link>
-            <Link to="/ask" className="hover:text-rose-600 text-cyan-800 font-medium">Q/A</Link>
-            <Link to="/about" className="hover:text-rose-600 text-cyan-800 font-medium">About</Link>
+          <div className="hidden md:flex items-center space-x-6 text-sm lg:text-base">
+            <Link to="/" className="hover:text-sky-600 text-gray-800 dark:text-white">
+              <Home className="inline mr-1" size={18} /> Home
+            </Link>
+            <Link to="/cart" className="hover:text-sky-600 text-gray-800 dark:text-white">
+              <ShoppingCart className="inline mr-1" size={18} /> Cart
+            </Link>
 
             {isLoading ? (
               <p className="text-cyan-800 font-medium">Loading...</p>
             ) : !data?.user ? (
               <>
-                <Link to="/auth/login" className="hover:text-rose-500 text-rose-600 font-medium">Login</Link>
-                <Link to="/auth/signup" className="hover:text-rose-500 text-rose-600 font-medium">Signup</Link>
+                <Link to="/auth/login" className="text-blue-600 font-medium hover:underline">Login</Link>
+                <Link to="/auth/signup" className="text-blue-600 font-medium hover:underline">Signup</Link>
               </>
             ) : (
-              <div className="flex gap-4 items-center">
-
-                <DropdownMenu>
-                  <DropdownMenuTrigger className=" outline-none">
-                    <img
-                      src={data.user.photoUrl}
-                      className="w-10 h-10 rounded-full border hover:border-rose-500"
-                      alt="User Profile"
-                    />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="mt-2">
-                    <DropdownMenuLabel className="text-sky-600 font-bold  bg-slate-100 rounded-md">{data?.user?.name}</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>
-                      <Link to={'/my/learning'} className="text-sky-700 hover:text-rose-500">
-                        My Learing
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link to={'/my/profile'} className="text-sky-700 hover:text-rose-500">
-                        My Profile
-                      </Link>
-                    </DropdownMenuItem>
-                    {
-                      data?.user.role == 'instructor' ? (
-                        <DropdownMenuItem>
-                          <Link to={'admin-panel-my-course/course'} className="text-sky-700 hover:text-rose-500">
-                            Dashboard
-                          </Link>
-                        </DropdownMenuItem>
-                      ) : null
-                    }
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-
+              <div className="flex items-center gap-3">
+                <Link to="/account" className="hover:text-sky-600 text-gray-800 dark:text-white">
+                  <User className="inline mr-1" size={18} /> Account
+                </Link>
                 <button onClick={handleLogout}>
-                  <LogOut className="text-cyan-800 hover:text-rose-500 cursor-pointer" />
+                  <LogOut className="text-cyan-800 hover:text-rose-500" />
                 </button>
               </div>
             )}
+
+            <button onClick={toggleTheme} className="text-sky-600 hover:text-rose-500">
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
           </div>
 
-          <button onClick={toggleTheme} className="mt-4 underline text-sm">
-            Toggle Theme
-          </button>
-
-          {/* Mobile Menu Button */}
-          <div className=" flex items-center gap-2 md:hidden">
-            {data?.user && (
-              <DropdownMenu>
-                <DropdownMenuTrigger className=" outline-none">
-                  <img
-                    src={data?.user.photoUrl}
-                    className="w-10 h-10 rounded-full border hover:border-rose-500"
-                    alt="User Profile"
-                  />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="mt-2">
-                  <DropdownMenuLabel className="text-sky-600 font-bold bg-slate-100 rounded-md">{data?.user?.name}</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link to={'/my/learning'} className="text-sky-700 hover:text-rose-500">
-                      My Learing
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link to={'/my/profile'} className="text-sky-700 hover:text-rose-500">
-                      My Profile
-                    </Link>
-                  </DropdownMenuItem>
-                    {
-                      data?.user.role == 'instructor' ? (
-                        <DropdownMenuItem>
-                          <Link to={'admin-panel-my-course/course'} className="text-sky-700 hover:text-rose-500">
-                            Dashboard
-                          </Link>
-                        </DropdownMenuItem>
-                      ) : null
-                    }
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden focus:outline-none"
-              aria-label="Toggle Menu"
-            >
-              {isOpen ? <X className="font-bold text-rose-600" size={30} /> : <Menu className="font-bold" size={30} />}
+          {/* Mobile theme only */}
+          <div className="md:hidden flex items-center gap-4">
+            <button onClick={toggleTheme} className="text-sky-600 hover:text-rose-500">
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <motion.nav
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -40 }}
-          transition={{ duration: 0.5 }}
-          className="md:hidden fixed bottom-0 left-0 w-full z-50 bg-slate-50 shadow-md p-4 flex flex-col items-center mt-4 space-y-4"
-        >
+      {/* Mobile Bottom Nav */}
+      <motion.nav
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 40 }}
+        transition={{ duration: 0.3 }}
+        className="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white dark:bg-slate-800 shadow-inner py-2 px-6 flex justify-between items-center"
+      >
+        <Link to="/" className="flex flex-col items-center text-sky-600">
+          <Home size={22} /> <span className="text-xs">Home</span>
+        </Link>
+        <Link to="/cart" className="flex flex-col items-center text-sky-600">
+          <ShoppingCart size={22} /> <span className="text-xs">Cart</span>
+        </Link>
+        <Link to="/account" className="flex flex-col items-center text-sky-600">
+          <User size={22} /> <span className="text-xs">Account</span>
+        </Link>
+        <button onClick={() => setIsOpen(true)} className="flex flex-col items-center text-sky-600">
+          <Menu size={22} /> <span className="text-xs">Menu</span>
+        </button>
+      </motion.nav>
 
-          {isLoading ? (
-            <p className="text-cyan-800 font-medium">Loading...</p>
-          ) : !data?.user ? (
-            <>
-              <Link to="/auth/login" className="hover:text-rose-500 text-rose-600 font-medium" onClick={() => setIsOpen(false)}>Login</Link>
-              <Link to="/auth/signup" className="hover:text-rose-500 text-rose-600 font-medium" onClick={() => setIsOpen(false)}>Signup</Link>
-            </>
-          ) : (
-            <div className="flex flex-col items-center gap-4">
-              <button onClick={handleLogout} className="flex items-center gap-2 font-medium text-cyan-800 hover:text-rose-500 cursor-pointer">
-                <p>Logout</p>
-                <LogOut />
-              </button>
-            </div>
-          )}
-
-        </motion.nav>
-      )}
+      {/* Sidebar Sheet */}
+      <Sidebar open={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
 }

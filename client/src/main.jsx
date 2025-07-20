@@ -16,7 +16,7 @@ const Custom = ({ children }) => {
       {isLoading ? (
         <div className="flex flex-col items-center justify-center h-screen">
           <ThreeDots height="80" width="80" color="#3b7ccd" ariaLabel="loading" />
-          <p className="mt-1 text-3xl text-sky-600">Growcare</p>
+          <p className="mt-1 text-3xl text-sky-600">Shadow it</p>
         </div>
       ) : (
         <>{children}</>

@@ -11,6 +11,7 @@ import ResetPassword from "./pages/Auth pages/ResetPassword";
 import Homepage from "./pages/CommonPages/Homepage/Homepage";
 import Product_details_main from "./pages/CommonPages/Productdetails/Product_details_main";
 import Catagorypage from "./pages/CommonPages/Catagoey/Catagorypage";
+import Cartpage from "./pages/CommonPages/Cart/Cartpage";
 
 const router = createBrowserRouter([
   {
@@ -30,7 +31,8 @@ const router = createBrowserRouter([
       },
       { path :"", element : <Homepage/> },
       { path : "/product_details/:productId", element:<Product_details_main/>},
-      { path : "/product/:category", element: <Catagorypage /> } 
+      { path : "/product/:category", element: <Catagorypage /> } ,
+      { path: "/cart", element: <Cartpage /> }
     ]
   }
 ]);

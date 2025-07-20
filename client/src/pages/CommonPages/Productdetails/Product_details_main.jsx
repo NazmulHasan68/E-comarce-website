@@ -37,7 +37,7 @@ export default function Product_details_main() {
         {/* Image Section */}
         <div >
           <div className="border rounded-lg overflow-hidden mb-2">
-            <img src={mainImage} alt="Main" className="w-full h-48 md:h-96 object-cover" />
+            <img src={mainImage} alt="Main" className="w-full h-72 md:h-96 object-cover" />
           </div>
 
           <div className="flex space-x-2 overflow-auto">

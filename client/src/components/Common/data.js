@@ -700,7 +700,7 @@ export const products = [
     link: "/products/olive-green-cargo-shirt"
   },
 
-  //== pangabi ==
+  //== panjabi ==
   {
   "id": 19,
   "title": "Classic White Cotton Panjabi",
@@ -718,7 +718,7 @@ export const products = [
   "finalPrice": 1349.1,
   "rating": 4.7,
   "totalReviews": 56,
-  "category": "Pangabi",
+  "category": "Panjabi",
   "stock": 24,
   "colors": ["White", "Off-white"],
   "sizes": ["M", "L", "XL"],
@@ -752,7 +752,7 @@ export const products = [
   "finalPrice": 1583.12,
   "rating": 4.6,
   "totalReviews": 40,
-  "category": "Pangabi",
+  "category": "Panjabi",
   "stock": 18,
   "colors": ["Navy Blue"],
   "sizes": ["M", "L"],
@@ -786,7 +786,7 @@ export const products = [
   "finalPrice": 1195.08,
   "rating": 4.5,
   "totalReviews": 28,
-  "category": "Pangabi",
+  "category": "Panjabi",
   "stock": 32,
   "colors": ["Olive Green"],
   "sizes": ["S", "M", "L"],
@@ -820,7 +820,7 @@ export const products = [
     "finalPrice": 1599.2,
     "rating": 4.9,
     "totalReviews": 65,
-    "category": "Pangabi",
+    "category": "Panjabi",
     "stock": 10,
     "colors": ["Maroon"],
     "sizes": ["M", "L", "XL"],
@@ -854,7 +854,7 @@ export const products = [
   "finalPrice": 1439.1,
   "rating": 4.4,
   "totalReviews": 22,
-  "category": "Pangabi",
+  "category": "Panjabi",
   "stock": 20,
   "colors": ["Grey"],
   "sizes": ["L", "XL"],
@@ -888,7 +888,7 @@ export const products = [
     "finalPrice": 1441.15,
     "rating": 4.8,
     "totalReviews": 50,
-    "category": "Pangabi",
+    "category": "Panjabi",
     "stock": 15,
     "colors": ["Black"],
     "sizes": ["M", "L", "XL"],

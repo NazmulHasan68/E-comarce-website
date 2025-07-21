@@ -13,6 +13,7 @@ import {
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 const categories = [
   {
@@ -86,14 +87,14 @@ export default function HomeCategory() {
     <div className="max-w-6xl md:mx-auto mx-2">
       <Slider {...settings}>
         {categories.map((category) => (
-          <div key={category.id} className="py-10 px-2 md:px-4 ">
+          <Link to={`/filter`} key={category.id} className="py-10 px-2 md:px-4 ">
             <div className="bg-[var(--secondary-bg-color)] cursor-pointer hover:scale-105 duration-200  shadow-xl rounded-xl md:p-4 p-3 flex flex-col items-center justify-center hover:shadow-lg transition">
               <div className="mb-2">{category.icon}</div>
               <h3 className="md:text-sm text-xs line-clamp-1 font-semibold text-[var(--primary-text-color)] text-center">
                 {category.title}
               </h3>
             </div>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>

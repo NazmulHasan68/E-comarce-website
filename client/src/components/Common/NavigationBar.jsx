@@ -47,8 +47,8 @@ export default function NavigationBar() {
 
   return (
     <>
-      <nav className="py-1 fixed top-0 left-0 w-full bg-transparent dark:bg-slate-900 z-50 shadow-2xl">
-        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center h-14">
+      <nav className="py-1 fixed top-0 left-0 w-full bg-transparent  z-50 shadow-2xl">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-14">
           <Link to="/" className="flex items-center space-x-2">
             <img src={Logo} className="h-8 w-8" alt="Logo" />
             <span className="text-sky-600 text-xl font-bold">Shadow Shop</span>

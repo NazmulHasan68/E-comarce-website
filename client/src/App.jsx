@@ -13,6 +13,7 @@ import Product_details_main from "./pages/CommonPages/Productdetails/Product_det
 import Catagorypage from "./pages/CommonPages/Catagoey/Catagorypage";
 import Cartpage from "./pages/CommonPages/Cart/Cartpage";
 import AccountPage from "./pages/CommonPages/Account/Accountpage";
+import FilterLayout from "./pages/CommonPages/Filter/FilterLayout";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,8 @@ const router = createBrowserRouter([
       { path : "/product_details/:productId", element:<Product_details_main/>},
       { path : "/product/:category", element: <Catagorypage /> } ,
       { path: "/cart", element: <Cartpage /> },
-      { path : "/account", element : <AccountPage/>}
+      { path : "/account", element : <AccountPage/>},
+      { path : "/filter", element : <FilterLayout/>,}
     ]
   }
 ]);

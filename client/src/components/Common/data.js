@@ -1114,3 +1114,21 @@ export const products = [
 
 
 ]
+
+
+
+export const category = [
+  "Hoodie",
+  "Panjabi",
+  "Shirt",
+  "Drop Shoulder",
+  "T-shirt",
+];
+
+
+export const brand = [
+  "spono",
+  "Adidus",
+  "Nike",
+  "Hello"
+]

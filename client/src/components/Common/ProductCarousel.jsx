@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Heart, ShoppingCartIcon, Trash } from 'lucide-react';
+import { CheckCircle, Heart, ShoppingCartIcon, Trash } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '@/redux/features/cartSlice';
 import { Link } from 'react-router-dom';
+import { addToLike, removeLike } from '@/redux/features/LikeSlice';
 
 export default function ProductCarousel({ data = [], title = "Products" }) {
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.cartItems);
+  const likeItems = useSelector((state) => state.like.likedItems);
+
+  const isLiked = (product) => likeItems?.some((item) => item.id === product.id);
 
   const isInCart = (product) => {
     return cartItems.some(
@@ -40,6 +44,17 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
 
   const formatPrice = (price) => {
     return parseFloat(price).toFixed(2); // 2 decimal places
+  };
+
+
+  const handleAddToLike = (e, product) => {
+      e.stopPropagation();
+      dispatch(addToLike(product));
+    };
+  
+  const handleRemoveLike = (e, product) => {
+      e.stopPropagation();
+      dispatch(removeLike(product.id));
   };
 
   const settings = {
@@ -75,7 +90,7 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
                     className="w-full h-48 object-cover"
                     loading="lazy"
                   />
-                  <div className="p-4">
+                  <div className="p-2">
                     <h2 className="text-lg font-semibold text-[var(--primary-text-color)] line-clamp-1">
                       {title}
                     </h2>
@@ -109,13 +124,23 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
                     </button>
                   )}
 
-                  <button
-                    className={`text-green-600 p-2 rounded-full ${wishlist[id] ? "bg-green-300" : "bg-green-100"}`}
-                    onClick={() => toggleWishlist(id)}
-                    aria-label="Toggle wishlist"
-                  >
-                    <Heart />
-                  </button>
+                  {isLiked(product) ? (
+                      <button
+                        className="text-emerald-600 bg-emerald-200 p-2 rounded-full"
+                        onClick={(e) => handleRemoveLike(e, product)}
+                        aria-label="Remove from wishlist"
+                      >
+                        <CheckCircle   />
+                      </button>
+                    ) : (
+                      <button
+                        className="text-rose-600 bg-rose-100 p-2 rounded-full"
+                        onClick={(e) => handleAddToLike(e, product)}
+                        aria-label="Add to wishlist"
+                      >
+                        <Heart />
+                      </button>
+                    )}
                 </div>
               </div>
             </div>

@@ -3,7 +3,7 @@ import ProductCarousel from "@/components/Common/ProductCarousel";
 import VerticalProductCarousel from "@/components/Common/VerticalProductCarousel";
 import HomeStyleshCart from "./HomeStyleshCart";
 import AdsCarousel from "@/components/Common/AdsCarousel";
-import { ads } from "@/components/Common/data";
+import { ads, products } from "@/components/Common/data";
 import { getAllCategoryProducts } from "@/components/hook/useAllCategoryProducts";
 import Homepopular from "./Homepopular";
 import HomeSuggested from "./HomeSugessted";
@@ -13,12 +13,17 @@ import HomeCategory from "./HomeCategory";
 export default function Homepage() {
   const allCategoryData = getAllCategoryProducts();
 
+  const propular = products.filter((product)=>product.isPopular)
+  const suggested = products.filter((product)=>product.isSuggested)
+
   return (
     <div className="bg-[var(--primary-bg-color)] w-full py-16">
       <HomeBanner />
       <HomeCategory />
-      <Homepopular />
-      <HomeSuggested />
+      {/* <Homepopular /> */}
+      <ProductCarousel data={propular} title={"Popular product"} />
+      <VerticalProductCarousel data={suggested} title={"Suggest product"} />
+      {/* <HomeSuggested /> */}
       <AdsCarousel data={ads} />
 
       {allCategoryData.map(({ category, products }, i) => {

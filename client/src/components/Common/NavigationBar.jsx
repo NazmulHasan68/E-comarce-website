@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, LogOut, Sun, Moon, Home, ShoppingCart, User } from "lucide-react";
+import { Menu, X, LogOut, Sun, Moon, Home, ShoppingCart, User, Heart } from "lucide-react";
 import Logo from "@/assets/react.svg";
 import { motion } from "framer-motion";
 import { useLoadUserQuery, useLogoutUserMutation } from "@/redux/ApiController/authApi";
 import { toast } from "sonner";
 import Sidebar from "./Sidebar"; // ⬅️ Sidebar component
+import { useSelector } from "react-redux";
 
 export default function NavigationBar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { data, isLoading } = useLoadUserQuery();
   const [logoutUser] = useLogoutUserMutation();
+
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   const [theme, setTheme] = useState(() => {
     return document.documentElement.getAttribute("data-theme") || "light";
@@ -60,7 +63,11 @@ export default function NavigationBar() {
             </Link>
             <Link to="/cart" className="hover:text-sky-600 text-gray-800 dark:text-white relative">
               <ShoppingCart className="inline mr-1" size={18} /> Cart
-              <h1 className=" absolute -top-5 -right-4 p-2 rounded-full text-yellow-500 font-bold">12</h1>
+              <h1 className=" absolute -top-5 -right-4 p-2 rounded-full text-yellow-500 font-bold">{cartItems.length || 0}</h1>
+            </Link>
+
+            <Link to="/like" className="hover:text-sky-600 text-gray-800 dark:text-white">
+              <Heart className="inline mr-1" size={18} /> Like
             </Link>
 
             {isLoading ? (
@@ -106,11 +113,29 @@ export default function NavigationBar() {
         <Link to="/" className="flex flex-col items-center text-sky-600">
           <Home size={22} /> <span className="text-xs">Home</span>
         </Link>
-        <Link to="/cart" className="flex flex-col items-center text-sky-600">
-          <ShoppingCart size={22} /> <span className="text-xs">Cart</span>
+        <Link to="/cart" className="text-sky-600 flex flex-col dark:text-white relative">
+          <ShoppingCart className="inline mr-1" size={18} /> Cart
+          <h1 className=" absolute -top-5 -right-2 p-2 rounded-full text-yellow-500 font-bold">{cartItems.length || 0}</h1>
         </Link>
-        <Link to="/account" className="flex flex-col items-center text-sky-600">
-          <User size={22} /> <span className="text-xs">Account</span>
+
+
+             {isLoading ? (
+              <p className="text-cyan-800 font-medium">Loading...</p>
+            ) : !data?.user ? (
+              <div className="flex flex-col justify-center items-center  text-sky-600">
+                <User size={22} />
+                <Link to="/auth/signup" className=" text-sky-600 font-medium ">Create</Link>
+              </div>
+            ) : (
+              <div className="flex items-center gap-3  text-sky-600">
+                <Link to="/account" className=" text-sky-600 ">
+                  <User className="inline mr-1 text-sky-500" size={18} /> Account
+                </Link>
+              </div>
+            )}
+
+        <Link to='/like' className="flex flex-col items-center text-sky-600">
+          <Heart size={22} /> <span className="text-xs">Like</span>
         </Link>
         <button onClick={() => setIsOpen(true)} className="flex flex-col items-center text-sky-600">
           <Menu size={22} /> <span className="text-xs">Menu</span>

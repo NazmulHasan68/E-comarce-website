@@ -1,12 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+// src/index.jsx
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.jsx';
 import { Provider } from "react-redux";
-import { appStore } from './redux/store';
+import { appStore, persistor } from './redux/store';
 import { useLoadUserQuery } from './redux/ApiController/authApi';
 import { ThreeDots } from 'react-loader-spinner';
-
+import { PersistGate } from 'redux-persist/integration/react';
 
 const Custom = ({ children }) => {
   const { isLoading } = useLoadUserQuery();
@@ -29,8 +30,10 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={appStore}>
       <Custom>
-        <App />
+        <PersistGate loading={null} persistor={persistor}>
+          <App />
+        </PersistGate>
       </Custom>
     </Provider>
   </StrictMode>,
-)
+);

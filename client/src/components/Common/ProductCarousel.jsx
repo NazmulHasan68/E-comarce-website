@@ -1,11 +1,47 @@
-import React from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { Heart, ShoppingCartIcon, Trash } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, removeFromCart } from '@/redux/features/cartSlice';
+import { Link } from 'react-router-dom';
 
 export default function ProductCarousel({ data = [], title = "Products" }) {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const cartItems = useSelector(state => state.cart.cartItems);
+
+  const isInCart = (product) => {
+    return cartItems.some(
+      item =>
+        item.id === product.id &&
+        (item.size === product.size || (!item.size && !product.size)) &&
+        (item.color === product.color || (!item.color && !product.color))
+    );
+  };
+
+  const [wishlist, setWishlist] = useState({});
+
+  const toggleWishlist = id => {
+    setWishlist(prev => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const handleAddToCart = product => {
+    dispatch(addToCart(product));
+  };
+
+  const handleRemoveFromCart = product => {
+    dispatch(removeFromCart({
+      id: product.id,
+      size: product.size, // optional
+      color: product.color, // optional
+    }));
+  };
+
+  const formatPrice = (price) => {
+    return parseFloat(price).toFixed(2); // 2 decimal places
+  };
+
   const settings = {
     dots: true,
     infinite: true,
@@ -22,40 +58,69 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-2 py-2 md:py-4 bg-[var(--primary-bg-color)] ">
-      <div className=" flex items-center justify-between">
-        <h1 className="md:text-2xl text-xl font-bold mb-2 text-left">
-          {title}
-        </h1>
-        <Link  to={`/product/${data[0]?.category}`} className="text-sm text-[var(--primary-text-color)] hover:font-bold hover:underline m-4 block">
-          View more
-        </Link>
-      </div>
+    <div className="max-w-6xl mx-auto px-2 py-2 md:py-4 bg-[var(--primary-bg-color)]">
+      <h1 className="md:text-2xl text-xl font-bold mb-4">{title}</h1>
+
       <Slider {...settings}>
-        {data.map(({ id, images, rating, category, price, title }) => (
-          <div
-            key={id}
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              setTimeout(() => {
-                  window.location.href = `/product_details/${id}`;
-               }, 30);
-            }}
-            className="md:px-4 px-2 py-3 md:py-6"
-          >
-            <div className="border bg-[var(--secondary-bg-color)] cursor-pointer rounded-lg overflow-hidden shadow hover:shadow-xl transition">
-              <img src={images && images.length > 0 ? images[0] : "/images/placeholder.png"} alt={title} className="w-full h-48 object-cover" loading="lazy" />
-              <div className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-yellow-500 font-semibold text-sm">⭐{rating}</span>
-                  <span className="text-xs md:text-sm text-[var(--tertiary-text-color)] line-clamp-1">{category}</span>
+        {data.map((product) => {
+          const { id, images, category, price, title } = product;
+
+          return (
+            <div key={id} className="md:px-4 px-2 py-3 md:py-6">
+              <div className="border bg-[var(--secondary-bg-color)] shadow hover:shadow-xl rounded-lg">
+                <Link to={`/product_details/${id}`} className="cursor-pointer rounded-t-lg overflow-hidden">
+                  <img
+                    src={images?.[0] ?? "/images/placeholder.png"}
+                    alt={title}
+                    className="w-full h-48 object-cover"
+                    loading="lazy"
+                  />
+                  <div className="p-4">
+                    <h2 className="text-lg font-semibold text-[var(--primary-text-color)] line-clamp-1">
+                      {title}
+                    </h2>
+                    <div className="flex justify-between items-center mt-1">
+                      <span className="font-bold text-[var(--white-text-color)]">
+                        ${formatPrice(price)}
+                      </span>
+                      <span className="text-sm text-[var(--tertiary-text-color)]">{category}</span>
+                    </div>
+                  </div>
+                </Link>
+
+                <div className="flex items-center justify-between p-2">
+                  {isInCart(product) ? (
+                    <button
+                      className="text-red-600 bg-red-100 p-2 rounded-full"
+                      onClick={() => handleRemoveFromCart(product)}
+                      aria-label="Remove from cart"
+                    >
+                      <Trash />
+                    </button>
+                  ) : (
+                    <button
+                      className="text-blue-600 bg-blue-100 p-2 rounded-full"
+                      onClick={() =>
+                        handleAddToCart({ ...product, quantity: 1 })
+                      }
+                      aria-label="Add to cart"
+                    >
+                      <ShoppingCartIcon />
+                    </button>
+                  )}
+
+                  <button
+                    className={`text-green-600 p-2 rounded-full ${wishlist[id] ? "bg-green-300" : "bg-green-100"}`}
+                    onClick={() => toggleWishlist(id)}
+                    aria-label="Toggle wishlist"
+                  >
+                    <Heart />
+                  </button>
                 </div>
-                <h2 className="text-sm md:text-lg text-[var(--primary-text-color)] font-semibold mb-1 line-clamp-1">{title}</h2>
-                <p className="text-[var(--white-text-color)] font-bold">{price}</p>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </Slider>
     </div>
   );

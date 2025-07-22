@@ -58,8 +58,9 @@ export default function NavigationBar() {
             <Link to="/" className="hover:text-sky-600 text-gray-800 dark:text-white">
               <Home className="inline mr-1" size={18} /> Home
             </Link>
-            <Link to="/cart" className="hover:text-sky-600 text-gray-800 dark:text-white">
+            <Link to="/cart" className="hover:text-sky-600 text-gray-800 dark:text-white relative">
               <ShoppingCart className="inline mr-1" size={18} /> Cart
+              <h1 className=" absolute -top-5 -right-4 p-2 rounded-full text-yellow-500 font-bold">12</h1>
             </Link>
 
             {isLoading ? (

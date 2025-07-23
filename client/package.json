@@ -26,6 +26,7 @@
     "react-dom": "^19.1.0",
     "react-loader-spinner": "^6.1.6",
     "react-redux": "^9.2.0",
+    "react-responsive": "^10.0.1",
     "react-router-dom": "^7.6.1",
     "react-slick": "^0.30.3",
     "redux-persist": "^6.0.0",

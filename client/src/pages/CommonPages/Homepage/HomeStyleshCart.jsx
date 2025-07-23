@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "@/redux/features/cartSlice";
 import { Trash, ShoppingCartIcon, Heart, CheckCircle } from "lucide-react";
 import { addToLike, removeLike } from "@/redux/features/LikeSlice";
+import { useMediaQuery } from "react-responsive";
 
 export default function HomeStyleshCart({ data = [], title = "Products" }) {
+    const isBigScreen = useMediaQuery({ minWidth: 1024 });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -114,7 +116,7 @@ export default function HomeStyleshCart({ data = [], title = "Products" }) {
                       }}
                       aria-label="Remove from cart"
                     >
-                      <Trash />
+                      <Trash size={isBigScreen ? 22 : 18}/>
                     </button>
                   ) : (
                     <button
@@ -125,7 +127,7 @@ export default function HomeStyleshCart({ data = [], title = "Products" }) {
                       }}
                       aria-label="Add to cart"
                     >
-                      <ShoppingCartIcon />
+                      <ShoppingCartIcon size={isBigScreen ? 22 : 18}/>
                     </button>
                   )}
 
@@ -135,7 +137,7 @@ export default function HomeStyleshCart({ data = [], title = "Products" }) {
                         onClick={(e) => handleRemoveLike(e, item)}
                         aria-label="Remove from wishlist"
                       >
-                        <CheckCircle  />
+                        <CheckCircle size={isBigScreen ? 22 : 18} />
                       </button>
                     ) : (
                       <button
@@ -143,7 +145,7 @@ export default function HomeStyleshCart({ data = [], title = "Products" }) {
                         onClick={(e) => handleAddToLike(e, item)}
                         aria-label="Add to wishlist"
                       >
-                        <Heart />
+                        <Heart size={isBigScreen ? 22 : 18}/>
                       </button>
                     )}
                 </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, LogOut, Sun, Moon, Home, ShoppingCart, User, Heart } from "lucide-react";
-import Logo from "@/assets/react.svg";
+import Logo from "@/assets/logwith.png";
 import { motion } from "framer-motion";
 import { useLoadUserQuery, useLogoutUserMutation } from "@/redux/ApiController/authApi";
 import { toast } from "sonner";
@@ -53,20 +53,20 @@ export default function NavigationBar() {
       <nav className="py-1 fixed top-0 left-0 w-full bg-transparent  z-50 shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-14">
           <Link to="/" className="flex items-center space-x-2">
-            <img src={Logo} className="h-8 w-8" alt="Logo" />
-            <span className="text-sky-600 text-xl font-bold">Shadow Shop</span>
+            <img src={Logo} className="md:h-12 h-10 md:w-40 w-32 object-cover" alt="Logo" />
+            {/* <span className="text-sky-600 text-xl font-bold">Shadow Shop</span> */}
           </Link>
 
           <div className="hidden md:flex items-center space-x-6 text-sm lg:text-base">
-            <Link to="/" className="hover:text-sky-600 text-gray-800 dark:text-white">
+            <Link to="/" className="hover:text-sky-600 text-blue-600 dark:text-white">
               <Home className="inline mr-1" size={18} /> Home
             </Link>
-            <Link to="/cart" className="hover:text-sky-600 text-gray-800 dark:text-white relative">
+            <Link to="/cart" className="hover:text-sky-600 text-blue-600 dark:text-white relative">
               <ShoppingCart className="inline mr-1" size={18} /> Cart
               <h1 className=" absolute -top-5 -right-4 p-2 rounded-full text-yellow-500 font-bold">{cartItems.length || 0}</h1>
             </Link>
 
-            <Link to="/like" className="hover:text-sky-600 text-gray-800 dark:text-white">
+            <Link to="/like" className="hover:text-sky-600 text-blue-600 dark:text-white">
               <Heart className="inline mr-1" size={18} /> Like
             </Link>
 

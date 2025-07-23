@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-14 grid gap-10 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
         {/* Brand */}
         <div className="lg:col-span-2 space-y-4">
-          <h2 className="text-2xl font-bold">YourBrand</h2>
+          <h2 className="text-2xl font-bold">Shadow Shop</h2>
           <p className="text-sm text-[var(--white-text-color)]">
             YourBrand is your trusted source for premium fashion and lifestyle products.
           </p>
@@ -94,7 +94,7 @@ export default function Footer() {
 
       {/* Footer Bottom */}
       <div className="border-t border-[var(--border-color)] mt-6 py-4 text-center text-sm text-[var(--white-text-color)]">
-        © {new Date().getFullYear()} YourBrand. All rights reserved.
+        © {new Date().getFullYear()} Shadow shop. All rights reserved.
       </div>
     </footer>
   );

@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Loader } from "lucide-react";
-import LoginImage from  "@/assets/react.svg";
+import LoginImage from  "@/assets/loginn.png";
 import { useLoginUserMutation } from "@/redux/ApiController/authApi";
 import { toast } from "sonner";
 
@@ -37,13 +37,13 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-slate-100">
+    <div className="flex justify-center items-center min-h-screen bg-[var(--primary-bg-color)]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 1 }}
-        className="bg-slate-50 text-gray-800 p-6 rounded-lg shadow-md mx-4 w-full max-w-3xl flex-col md:flex-row flex justify-between items-center gap-2"
+        className="bg-[var(--secondary-bg-color)] text-gray-800 p-6 rounded-lg shadow-md mx-4 w-full max-w-3xl flex-col md:flex-row flex justify-between items-center gap-2"
       >
         <div className="basis-1/2 hidden md:block">
           <img src={LoginImage} className="w-full h-full object-cover" />
@@ -59,7 +59,7 @@ function Login() {
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full"
+                className="w-full bg-[var(--tertiary-bg-color)] dark:text-gray-50 text-gray-600"
                 required
               />
             </div>
@@ -71,7 +71,7 @@ function Login() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full"
+                className="w-full bg-[var(--tertiary-bg-color)] dark:text-gray-50 text-gray-600"
                 required
               />
             </div>

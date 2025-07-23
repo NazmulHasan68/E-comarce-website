@@ -7,8 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, removeFromCart } from '@/redux/features/cartSlice';
 import { Link } from 'react-router-dom';
 import { addToLike, removeLike } from '@/redux/features/LikeSlice';
+import { useMediaQuery } from "react-responsive";
 
 export default function ProductCarousel({ data = [], title = "Products" }) {
+
+  const isBigScreen = useMediaQuery({ minWidth: 1024 });
   const dispatch = useDispatch();
   const cartItems = useSelector(state => state.cart.cartItems);
   const likeItems = useSelector((state) => state.like.likedItems);
@@ -58,7 +61,7 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
   };
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 600,
     slidesToShow: 4,
@@ -81,7 +84,7 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
           const { id, images, category, price, title } = product;
 
           return (
-            <div key={id} className="md:px-4 px-2 py-3 md:py-6">
+            <div key={id} className="md:px-4 px-2 py-3 md:py-4">
               <div className="border bg-[var(--secondary-bg-color)] shadow hover:shadow-xl rounded-lg">
                 <Link to={`/product_details/${id}`} className="cursor-pointer rounded-t-lg overflow-hidden">
                   <img
@@ -110,7 +113,7 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
                       onClick={() => handleRemoveFromCart(product)}
                       aria-label="Remove from cart"
                     >
-                      <Trash />
+                      <Trash size={isBigScreen ? 22 : 18} />
                     </button>
                   ) : (
                     <button
@@ -120,7 +123,7 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
                       }
                       aria-label="Add to cart"
                     >
-                      <ShoppingCartIcon />
+                      <ShoppingCartIcon size={isBigScreen ? 22 : 18} />
                     </button>
                   )}
 
@@ -130,7 +133,7 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
                         onClick={(e) => handleRemoveLike(e, product)}
                         aria-label="Remove from wishlist"
                       >
-                        <CheckCircle   />
+                        <CheckCircle  size={isBigScreen ? 22 : 18} />
                       </button>
                     ) : (
                       <button
@@ -138,7 +141,7 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
                         onClick={(e) => handleAddToLike(e, product)}
                         aria-label="Add to wishlist"
                       >
-                        <Heart />
+                        <Heart size={isBigScreen ? 22 : 18}/>
                       </button>
                     )}
                 </div>

@@ -8,8 +8,10 @@ import { CheckCircle } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "@/redux/features/cartSlice";
 import { addToLike, removeLike } from "@/redux/features/LikeSlice";
+import { useMediaQuery } from "react-responsive";
 
 export default function VerticalProductCarousel({ data = [], title = "Products" }) {
+  const isBigScreen = useMediaQuery({ minWidth: 1024 });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -40,7 +42,7 @@ export default function VerticalProductCarousel({ data = [], title = "Products" 
   };
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 600,
     slidesToShow: 3,
@@ -118,7 +120,7 @@ export default function VerticalProductCarousel({ data = [], title = "Products" 
                         onClick={(e) => handleRemoveFromCart(e, product)}
                         aria-label="Remove from cart"
                       >
-                        <Trash />
+                        <Trash size={isBigScreen ? 22 : 18}/>
                       </button>
                     ) : (
                       <button
@@ -126,7 +128,7 @@ export default function VerticalProductCarousel({ data = [], title = "Products" 
                         onClick={(e) => handleAddToCart(e, product)}
                         aria-label="Add to cart"
                       >
-                        <ShoppingCartIcon />
+                        <ShoppingCartIcon size={isBigScreen ? 22 : 18}/>
                       </button>
                     )}
 
@@ -136,7 +138,7 @@ export default function VerticalProductCarousel({ data = [], title = "Products" 
                         onClick={(e) => handleRemoveLike(e, product)}
                         aria-label="Remove from wishlist"
                       >
-                        <CheckCircle   />
+                        <CheckCircle  size={isBigScreen ? 22 : 18} />
                       </button>
                     ) : (
                       <button
@@ -144,7 +146,7 @@ export default function VerticalProductCarousel({ data = [], title = "Products" 
                         onClick={(e) => handleAddToLike(e, product)}
                         aria-label="Add to wishlist"
                       >
-                        <Heart />
+                        <Heart size={isBigScreen ? 22 : 18}/>
                       </button>
                     )}
                   </div>

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "lucide-react";
-import SignUpImage from "@/assets/react.svg";
+import SignUpImage from "@/assets/singup.png";
 import { useRegisterUserMutation } from "@/redux/ApiController/authApi";
 
 function Signup() {
@@ -41,13 +41,13 @@ function Signup() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-slate-100">
+    <div className="flex justify-center items-center min-h-screen bg-[var(--primary-bg-color)]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 1 }}
-        className="bg-slate-50 text-gray-800 p-6 rounded-lg shadow-md w-full max-w-3xl mx-4 flex-col md:flex-row flex justify-between items-center gap-4"
+        className="bg-[var(--secondary-bg-color)] text-gray-800 p-6 rounded-lg shadow-md w-full max-w-3xl mx-4 flex-col md:flex-row flex justify-between items-center gap-4"
       >
         <div className="basis-1/2 hidden md:block">
           <img src={SignUpImage} className="w-full h-full object-cover" alt="Sign up" />
@@ -67,7 +67,7 @@ function Signup() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full"
+                className="w-full bg-[var(--tertiary-bg-color)] dark:text-gray-50 text-gray-600"
                 required
               />
             </div>
@@ -79,7 +79,7 @@ function Signup() {
                 type="text"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full"
+                className="w-full bg-[var(--tertiary-bg-color)] dark:text-gray-50 text-gray-600"
                 required
               />
             </div>
@@ -91,7 +91,7 @@ function Signup() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full"
+                className="w-full bg-[var(--tertiary-bg-color)] dark:text-gray-50 text-gray-600"
                 required
               />
             </div>

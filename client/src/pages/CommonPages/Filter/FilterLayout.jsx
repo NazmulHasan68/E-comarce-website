@@ -79,17 +79,17 @@ export default function FilterLayout() {
         </aside>
 
         {/* Main content */}
-        <main className="w-full py-4 md:basis-3/4 h-screen overflow-auto">
-          <div className="flex items-center justify-between px-4 gap-2 mb-2">
+        <main className="max-w-6xl py-4 md:basis-3/4 h-screen overflow-auto">
+          <div className="flex items-center w-full justify-between px-2 md:px-4 gap-1 mb-2">
             <input
               type="text"
               placeholder="Search products..."
               value={searchitem}
               onChange={(e)=>setsearchitem(e.target.value)}
-              className="flex-1 ml-4 px-4 py-2 border rounded-md focus:outline-none focus:ring"
+              className="flex-1 ml-2 px-4 py-2 basis-2/3 border rounded-md focus:outline-none focus:ring"
             />
             <button
-              className="md:hidden flex items-center gap-1 bg-white border px-3 py-2 rounded shadow"
+              className="md:hidden flex basis-1/3 items-center gap-1 bg-white border px-3 py-2 rounded shadow"
               onClick={() => setShowMobileFilter(true)}
             >
               <Menu size={18} />
@@ -98,7 +98,7 @@ export default function FilterLayout() {
           </div>
 
           {/* Product grid */}
-          <div className=" p-2">
+          <div className="">
             <ProductFilter data={filterproduct} title="All Product"/>
           </div>
         </main>

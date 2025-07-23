@@ -84,7 +84,7 @@ export default function ProductCarousel({ data = [], title = "Products" }) {
           const { id, images, category, price, title } = product;
 
           return (
-            <div key={id} className="md:px-4 px-2 py-3 md:py-4">
+            <div key={id} className="md:px-4 px-1 py-2 md:py-4">
               <div className="border bg-[var(--secondary-bg-color)] shadow hover:shadow-xl rounded-lg">
                 <Link to={`/product_details/${id}`} className="cursor-pointer rounded-t-lg overflow-hidden">
                   <img

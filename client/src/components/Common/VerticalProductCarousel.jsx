@@ -100,7 +100,7 @@ export default function VerticalProductCarousel({ data = [], title = "Products" 
                     {title}
                   </Link>
 
-                  <div className="flex justify-between text-sm mb-1 text-[var(--tertiary-text-color)] px-2">
+                  <div className="flex justify-between items-center text-sm mb-1 text-[var(--tertiary-text-color)] px-2">
                     <p className="text-indigo-600 font-bold text-lg">
                       Price: ৳
                       {Number(price).toLocaleString(undefined, {
@@ -108,7 +108,7 @@ export default function VerticalProductCarousel({ data = [], title = "Products" 
                         maximumFractionDigits: 2,
                       })}
                     </p>
-                    <span className="bg-[var(--primary-gradient)] px-2 py-0.5 rounded text-xs text-white">
+                    <span className="bg-[var(--primary-gradient)] px-2 py-0.5 rounded text-xs text-blue-500">
                       {category}
                     </span>
                   </div>

@@ -21,7 +21,7 @@ export default function ProductFilter({ data = [], title = "Products" }) {
                   window.location.href = `/product_details/${id}`;
                }, 30);
             }}
-            className="md:px-4 px-2 py-3 md:py-6"
+            className="md:px-3 px-1 py-3 md:py-6"
           >
             <div className="border bg-[var(--secondary-bg-color)] cursor-pointer rounded-lg overflow-hidden shadow hover:shadow-xl transition">
               <img src={images && images.length > 0 ? images[0] : "/images/placeholder.png"} alt={title} className="w-full h-48 object-cover" loading="lazy" />

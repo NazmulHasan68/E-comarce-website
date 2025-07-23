@@ -55,7 +55,7 @@ export default function HomeStyleshCart({ data = [], title = "Products" }) {
   };
 
   return (
-    <div className="max-w-6xl mx-2 md:mx-auto py-10">
+    <div className="max-w-6xl mx-1 md:mx-auto py-10">
       <div className="flex items-center justify-between">
         <h1 className="md:text-2xl text-[var(--primary-text-color)] text-xl font-bold mb-2 text-left">
           {title}
@@ -81,7 +81,7 @@ export default function HomeStyleshCart({ data = [], title = "Products" }) {
                   navigate(`/product_details/${id}`);
                 }, 30);
               }}
-              className="md:px-4 px-2 py-3 md:py-6"
+              className="md:px-4 px-1 py-2 md:py-4"
             >
               <div className="bg-[var(--secondary-bg-color)] rounded-tr-[15%] rounded-bl-[15%] cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 p-4 flex flex-col items-center text-center h-full">
                 <img

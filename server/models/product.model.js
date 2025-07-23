@@ -11,6 +11,7 @@ const productSchema = new mongoose.Schema({
   rating: { type: Number, default: 0 },
   totalReviews: { type: Number, default: 0 },
   category: { type: String },
+  band : {type: String},
 
   stock: { type: Number, default: 0 },
   colors: [{ type: String }],

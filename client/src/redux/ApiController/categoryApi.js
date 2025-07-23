@@ -8,27 +8,31 @@ export const categoryApi = createApi({
     baseUrl: `${BASE_URL}/api/categories`,
     credentials: "include",
   }),
+  tagTypes: ["Category"], // 👈 Add tag type
   endpoints: (builder) => ({
     getCategories: builder.query({
       query: () => "/",
+      providesTags: ["Category"], // 👈 Provide tag
     }),
     addCategory: builder.mutation({
       query: (formData) => ({
         url: "/",
         method: "POST",
-        body: formData, // expects FormData with 'category' and 'icon' fields
+        body: formData,
       }),
+      invalidatesTags: ["Category"], // 👈 Invalidate tag to refresh data
     }),
     deleteCategory: builder.mutation({
       query: (id) => ({
         url: `/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Category"], // 👈 Invalidate tag to refresh data
     }),
   }),
 });
 
-// Export hooks for usage in functional components
+// Export hooks
 export const {
   useGetCategoriesQuery,
   useAddCategoryMutation,

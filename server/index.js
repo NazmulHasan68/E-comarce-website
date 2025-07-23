@@ -9,6 +9,8 @@ import { dbconnection } from './utills/dbConnection.js';
 import authanticationRoute from './routes/authentication.route.js'
 import { exec } from 'child_process';
 import categoryRoutes from "./routes/categoryRoute.js";
+import bandRoutes from "./routes/bandRoute.js"
+import productRoutes from "./routes/productRoutes.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,7 +41,9 @@ app.use('/public', express.static('public'));
 
 //called api 
 app.use('/api/auth', authanticationRoute)
-app.use("/api/categories", categoryRoutes);
+app.use("/api/categories", categoryRoutes)
+app.use("/api/band", bandRoutes)
+app.use("/api/product", productRoutes)
 
 
 

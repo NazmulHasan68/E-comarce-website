@@ -44,9 +44,6 @@ const handleOnClick = async () => {
   return (
     <div className="bg-[var(--primary-bg-color)] w-full py-16">
       <HomeBanner />
-      <div onClick={()=>handleOnClick()} className=" cursor-pointer">
-        hello bangladesh
-      </div>
       <HomeCategory />
       {/* <Homepopular /> */}
       <ProductCarousel data={propular} title={"Popular product"} />

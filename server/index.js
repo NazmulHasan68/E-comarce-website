@@ -7,6 +7,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dbconnection } from './utills/dbConnection.js';
 import authanticationRoute from './routes/authentication.route.js'
+import { exec } from 'child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,6 +37,34 @@ app.use(
 
 //called api 
 app.use('/api/auth', authanticationRoute)
+
+
+
+
+
+
+
+
+// parse_nc4.py এর সঠিক path দিয়ে দাও
+const scriptPath = path.join(__dirname, 'parse_nc4.py');
+// sample.nc4 এর সঠিক path
+const nc4FilePath = path.join(__dirname, 'data', 'sample.nc4');
+
+exec(`python ${scriptPath} ${nc4FilePath}`, (err, stdout, stderr) => {
+  if (err) {
+    console.error("Error:", stderr);
+    return;
+  }
+  try {
+    const parsedData = JSON.parse(stdout);
+    console.log(parsedData);
+  } catch (parseErr) {
+    console.error("JSON parse error:", parseErr);
+  }
+});
+
+
+
 
 
 // Routes

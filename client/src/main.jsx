@@ -6,8 +6,8 @@ import App from './App.jsx';
 import { Provider } from "react-redux";
 import { appStore, persistor } from './redux/store';
 import { useLoadUserQuery } from './redux/ApiController/authApi';
-import { ThreeDots } from 'react-loader-spinner';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ClipLoader } from "react-spinners";
 
 const Custom = ({ children }) => {
   const { isLoading } = useLoadUserQuery();
@@ -16,7 +16,7 @@ const Custom = ({ children }) => {
     <>
       {isLoading ? (
         <div className="flex flex-col items-center justify-center h-screen">
-          <ThreeDots height="80" width="80" color="#3b7ccd" ariaLabel="loading" />
+          <ClipLoader size={30} color="#4A90E2" />;
           <p className="mt-1 text-3xl text-sky-600">Shadow it</p>
         </div>
       ) : (

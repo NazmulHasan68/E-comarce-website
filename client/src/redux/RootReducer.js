@@ -6,6 +6,7 @@ import likeReducer from '../redux/features/LikeSlice';
 import { authApi } from './ApiController/authApi';
 import storage from 'redux-persist/lib/storage';
 import persistReducer from 'redux-persist/es/persistReducer';
+import { categoryApi } from './ApiController/categoryApi';
 
 // Configs
 const cartPersistConfig = {
@@ -20,7 +21,8 @@ const likePersistConfig = {
 
 // Combine all reducers
 const rootReducer = combineReducers({
-  [authApi.reducerPath]: authApi.reducer, // RTK Query reducer
+  [authApi.reducerPath]: authApi.reducer,
+  [categoryApi.reducerPath]: categoryApi.reducer ,// RTK Query reducer
   auth: authReducer,                      // Not persisted
   cart: persistReducer(cartPersistConfig, cartReducer), // Persisted
   like: persistReducer(likePersistConfig, likeReducer), // Persisted

@@ -144,9 +144,6 @@ export const getUserProfile = async (req, res) => {
         
         // Find user by ID from the decoded token
         const user = await User.findById(decoded.userId)
-            .populate('enrolledCourses')
-            .populate('enrolledClass') 
-            .populate('enrolledSubject')
             .select("-password");
 
         if (!user) {

@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import { dbconnection } from './utills/dbConnection.js';
 import authanticationRoute from './routes/authentication.route.js'
 import { exec } from 'child_process';
+import categoryRoutes from "./routes/categoryRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,6 +19,7 @@ if (!fs.existsSync(logDir)) {
 }
 
 dotenv.config();
+
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -33,10 +35,11 @@ app.use(
       allowedHeaders: 'Content-Type, Authorization', 
     })
 );
-
+app.use('/public', express.static('public'));
 
 //called api 
 app.use('/api/auth', authanticationRoute)
+app.use("/api/categories", categoryRoutes);
 
 
 

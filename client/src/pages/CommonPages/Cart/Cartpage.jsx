@@ -39,7 +39,7 @@ export default function Cartpage() {
           <div className="max-w-4xl mx-auto text-gray-600 py-16 mt-20 ">
             <div className="">
               <img src={empty} className="w-40 mx-auto  object-cover"/>
-              <p className="text-center">Still Your can't Select the any product</p>
+              <p className="text-center">Still Your don't Select the any product</p>
             </div>
           </div>
         ) : (

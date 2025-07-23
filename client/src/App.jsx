@@ -15,6 +15,20 @@ import Cartpage from "./pages/CommonPages/Cart/Cartpage";
 import AccountPage from "./pages/CommonPages/Account/Accountpage";
 import FilterLayout from "./pages/CommonPages/Filter/FilterLayout";
 import Likepage from "./pages/CommonPages/Like/Likepage";
+import AdminLayout from "./pages/Admin pages/AdminLayout";
+import Admin_dashboard from "./pages/Admin pages/Admin_dashboard";
+import Admin_product_list from "./pages/Admin pages/Admin_product_list";
+import Admin_pending_list from "./pages/Admin pages/Admin_pending_list";
+import Admin_process_list from "./pages/Admin pages/Admin_process_list";
+import Admin_delivered from "./pages/Admin pages/Admin_delivered";
+import Admin_complete_list from "./pages/Admin pages/Admin_complete_list";
+import Admin_suggested_list from "./pages/Admin pages/Admin_suggested_list";
+import Admin_popular_list from "./pages/Admin pages/Admin_popular_list";
+import Admin_rejected_list from "./pages/Admin pages/Admin_rejected_list";
+import Admin_selling_list from "./pages/Admin pages/Admin_selling_list";
+import Admin_category from "./pages/Admin pages/Admin_category";
+import Admin_users from "./pages/Admin pages/Admin_users";
+import Admin_banner_ads from "./pages/Admin pages/Admin_banner_ads";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +52,27 @@ const router = createBrowserRouter([
       { path : "/cart", element: <Cartpage /> },
       { path : "/like", element: <Likepage/>},
       { path : "/account", element : <AccountPage/>},
-      { path : "/filter", element : <FilterLayout/>,}
+      { path : "/filter", element : <FilterLayout/>,},
+
+
+
+      { path : "/control", element :<AdminLayout/>,
+        children : [
+          { path : "" , element: <Admin_dashboard/>},
+          { path : "product_list" , element: <Admin_product_list/>},
+          { path : "pending_list" , element: <Admin_pending_list/>},
+          { path : "proceing_list" , element: <Admin_process_list/>},
+          { path : "delivered_list" , element: <Admin_delivered/>},
+          { path : "completed_list" , element: <Admin_complete_list/>},
+          { path : "rejected_list" , element: <Admin_rejected_list/>},
+          { path : "popular" , element: <Admin_popular_list/>},
+          { path : "suggested" , element: <Admin_suggested_list/>},
+          { path : "best_selling" , element: <Admin_selling_list/>},
+          { path : "catagory_band" , element: <Admin_category/>},
+          { path : "users" , element: <Admin_users/>},
+          { path : "banner_ads" , element: <Admin_banner_ads/>},
+        ]
+      }
     ]
   }
 ]);

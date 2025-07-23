@@ -89,7 +89,7 @@ export default function FilterLayout() {
               className="flex-1 ml-2 px-4 py-2 basis-2/3 border rounded-md focus:outline-none focus:ring"
             />
             <button
-              className="md:hidden flex basis-1/3 gap-1 bg-white border justify-center items-center py-2 rounded shadow"
+              className="md:hidden flex basis-1/3 gap-1 bg-white border justify-center px-1 items-center py-2 rounded shadow"
               onClick={() => setShowMobileFilter(true)}
             >
               <Menu size={18} />

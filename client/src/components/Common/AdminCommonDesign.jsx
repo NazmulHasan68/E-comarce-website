@@ -49,7 +49,7 @@ export default function AdminCommonDesign({
       <TableCell>
         <Link
           to={`/control/product_details/${order._id}`}
-          className="hover:underline hover:font-bold"
+          className="hover:underline hover:font-bold text-green-600"
         >
           View
         </Link>

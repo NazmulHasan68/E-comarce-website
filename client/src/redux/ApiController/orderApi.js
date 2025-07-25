@@ -32,10 +32,15 @@ export const orderApi = createApi({
       providesTags: (result, error, id) => [{ type: "Order", id }],
     }),
 
+    getOrderbyUser : builder.query({
+      query : (id) => `/user/${id}`,
+      providesTags: (result, error, id) => [{ type: "Order", id }],
+    }),
+
     // Update order status
     updateOrderStatus: builder.mutation({
-      query: ({ id, status }) => ({
-        url: `/${id}`,
+      query: ({ orderId, status }) => ({
+        url: `/${orderId}`,
         method: "PUT",
         body: { status },
       }),
@@ -53,6 +58,8 @@ export const orderApi = createApi({
       }),
       invalidatesTags: ["Order"],
     }),
+
+   getdashboard: builder.query({ query: () => `/dashboard` })
   }),
 });
 
@@ -60,6 +67,8 @@ export const {
   useCreateOrderMutation,
   useGetAllOrdersQuery,
   useGetOrderByIdQuery,
+  useGetOrderbyUserQuery,
   useUpdateOrderStatusMutation,
   useDeleteOrderMutation,
+  useGetdashboardQuery
 } = orderApi;

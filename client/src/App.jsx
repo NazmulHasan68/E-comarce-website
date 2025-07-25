@@ -65,7 +65,7 @@ const router = createBrowserRouter([
           { path : "product_list" , element: <Admin_product_list/>},
           { path : "product_list/:productId", element:<Admin_product_details/>},
           { path : "pending_list" , element: <Admin_pending_list/>},
-          { path : "product_details/:productId", element : <Admin_p_status_view/>},
+          { path : "product_details/:orderId", element : <Admin_p_status_view/>},
           { path : "proceing_list" , element: <Admin_process_list/>},
           { path : "delivered_list" , element: <Admin_delivered/>},
           { path : "completed_list" , element: <Admin_complete_list/>},

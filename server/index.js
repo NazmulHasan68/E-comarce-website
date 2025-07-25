@@ -50,10 +50,6 @@ app.use("/api/hero", heroRoutes)
 app.use("/api/orders", orderRoutes)
 
 
-
-
-
-
 // Routes
 app.get('/', (req, res) => {
   res.send('GrowCare Backend Running');

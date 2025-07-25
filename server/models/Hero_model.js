@@ -2,10 +2,11 @@ import mongoose from "mongoose";
 
 const heroSchema = new mongoose.Schema(
   {
-    image: { type: String, required: true },
+    banner: { type: String, required: true },
     title: { type: String, required: true },
     subtitle: { type: String },
     link: { type: String },
+    isAds : { type : Boolean, default:false}
   },
   { timestamps: true }
 );

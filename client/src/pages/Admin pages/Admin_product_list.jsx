@@ -61,7 +61,7 @@ export default function Admin_product_list() {
             onChange={(e) => setSelectedCategory(e.target.value)}
             className="py-1 px-4 border border-gray-300 rounded-3xl text-gray-600"
           >
-            <option value="">All Categories</option>
+            <option value="">Categories</option>
             {categories.map((cat) => (
               <option key={cat._id} value={cat.category}>
                 {cat.category}
@@ -103,7 +103,7 @@ export default function Admin_product_list() {
                   <td className="p-2 border">{product.category}</td>
                   <td className="p-2 border">
                     <Link
-                      to={`/product/${product._id}`}
+                      to={`${product._id}`}
                       className="text-blue-600 hover:underline"
                     >
                       View
@@ -147,7 +147,7 @@ function AddProduct() {
   const [discount, setDiscount] = useState("");
   const [stock, setStock] = useState("");
   const [category, setCategory] = useState("");
-  const [brand, setBrand] = useState("");
+  const [band, setBand] = useState("");
   const [colors, setColors] = useState("");
   const [sizes, setSizes] = useState("");
   const [sales, setSales] = useState("");
@@ -190,7 +190,7 @@ function AddProduct() {
       formData.append("discount", discount || 0);
       formData.append("stock", stock || 0);
       formData.append("category", category);
-      formData.append("band", brand);
+      formData.append("band", band);
       formData.append("colors", colors);
       formData.append("sizes", sizes);
       formData.append("sales", sales || 0);
@@ -211,7 +211,7 @@ function AddProduct() {
       setDiscount("");
       setStock("");
       setCategory("");
-      setBrand("");
+      setBand("");
       setColors("");
       setSizes("");
       setSales("");
@@ -293,8 +293,8 @@ function AddProduct() {
             </select>
 
             <select
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
+              value={band}
+              onChange={(e) => setBand(e.target.value)}
               className="border p-2 rounded"
             >
               <option value="">Select Brand</option>

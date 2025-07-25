@@ -11,6 +11,8 @@ import { exec } from 'child_process';
 import categoryRoutes from "./routes/categoryRoute.js";
 import bandRoutes from "./routes/bandRoute.js"
 import productRoutes from "./routes/productRoutes.js"
+import heroRoutes from "./routes/heroRoute.js"
+import orderRoutes from "./routes/orderRoute.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,31 +46,9 @@ app.use('/api/auth', authanticationRoute)
 app.use("/api/categories", categoryRoutes)
 app.use("/api/band", bandRoutes)
 app.use("/api/product", productRoutes)
+app.use("/api/hero", heroRoutes)
+app.use("/api/orders", orderRoutes)
 
-
-
-
-
-
-
-
-// parse_nc4.py এর সঠিক path দিয়ে দাও
-const scriptPath = path.join(__dirname, 'parse_nc4.py');
-// sample.nc4 এর সঠিক path
-const nc4FilePath = path.join(__dirname, 'data', 'sample.nc4');
-
-exec(`python ${scriptPath} ${nc4FilePath}`, (err, stdout, stderr) => {
-  if (err) {
-    console.error("Error:", stderr);
-    return;
-  }
-  try {
-    const parsedData = JSON.parse(stdout);
-    console.log(parsedData);
-  } catch (parseErr) {
-    console.error("JSON parse error:", parseErr);
-  }
-});
 
 
 

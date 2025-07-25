@@ -9,6 +9,8 @@ import persistReducer from 'redux-persist/es/persistReducer';
 import { categoryApi } from './ApiController/categoryApi';
 import { bandApi } from './ApiController/bandApi';
 import { productApi } from './ApiController/productApi';
+import { heroApi } from './ApiController/heroApi';
+import { orderApi } from './ApiController/orderApi';
 
 // Configs
 const cartPersistConfig = {
@@ -27,6 +29,9 @@ const rootReducer = combineReducers({
   [categoryApi.reducerPath]: categoryApi.reducer ,// RTK Query reducer
   [bandApi.reducerPath] : bandApi.reducer,
   [productApi.reducerPath] : productApi.reducer,
+  [heroApi.reducerPath] : heroApi.reducer,
+  [orderApi.reducerPath] : orderApi.reducer,
+  
   auth: authReducer,                      // Not persisted
   cart: persistReducer(cartPersistConfig, cartReducer), // Persisted
   like: persistReducer(likePersistConfig, likeReducer), // Persisted

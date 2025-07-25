@@ -105,7 +105,7 @@ const Sidebar = () => {
               className={`flex items-center gap-3 py-2 px-4 text-sm font-medium transition-all  rounded-xl
                 ${
                   isActive
-                    ? " text-white border-l-4 border-teal-500 font-bold shadow-md bg-blue-400"
+                    ? " text-white border-l-4 border-blue-800 font-bold shadow-md bg-blue-400"
                     : "text-gray-700 hover:bg-blue-200 bg-slate-50"
                 }`}
             >

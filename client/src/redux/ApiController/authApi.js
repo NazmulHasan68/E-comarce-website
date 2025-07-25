@@ -121,7 +121,7 @@ export const authApi = createApi({
         }),
 
 
-        getAllStudent:builder.query({
+        getAlluser:builder.query({
             query : ()=>({
                 url : "/get-all-student",
                 method : "GET"
@@ -139,5 +139,5 @@ export const {
     useForgetPasswordMutation,
     useForgotPasswordCodeMutation,
     useResetPasswordMutation,
-    useGetAllStudentQuery
+    useGetAlluserQuery
 } = authApi;

@@ -85,6 +85,9 @@ export const verifyOtp = async (req, res) => {
 
 // Login User
 export const login = async (req, res) => {
+
+    console.log("hi");
+    
     const { phone, password } = req.body;
 
     if (!phone || !password) {
@@ -319,8 +322,8 @@ export const resetPassword = async (req, res) => {
 //get all the student
 export const getallthestudent = async(req, res)=>{
     try {
-        const student = await User.find({})
-        return res.status(200).json({student})
+        const Users = await User.find({})
+        return res.status(200).json({Users})
     } catch (error) {
         return res.status(500).json({ success: false, message: "All student get", error: error.message });
     }

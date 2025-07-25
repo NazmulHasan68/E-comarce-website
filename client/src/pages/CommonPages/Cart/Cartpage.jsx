@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { ArchiveX, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useSelector, useDispatch } from "react-redux";
 import {
   removeFromCart,
   incrementQuantity,
   decrementQuantity,
 } from "@/redux/features/cartSlice";
-import { Link } from "react-router-dom";
-import empty from "@/assets/empty.png"
+import { Link, useNavigate } from "react-router-dom";
+import empty from "@/assets/empty.png";
 import { toast } from "sonner";
+import { useCreateOrderMutation } from "@/redux/ApiController/orderApi";
+import { useLoadUserQuery } from "@/redux/ApiController/authApi";
 
-export default function Cartpage() {
+export default function CartPage() {
+  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.cartItems || []);
   const dispatch = useDispatch();
+  const { data } = useLoadUserQuery();
+  const [showDialog, setShowDialog] = useState(false);
 
   const [shippingLocation, setShippingLocation] = useState("inside");
-
   const shippingCost = shippingLocation === "inside" ? 80 : 120;
 
   const totalAmount = cartItems.reduce(
@@ -28,6 +33,17 @@ export default function Cartpage() {
     dispatch(removeFromCart(item));
   };
 
+  const handleOrder = () => {
+    if (data?.user) {
+      setShowDialog(true);
+      console.log("hi");
+      
+    } else {
+      navigate("/auth/login");
+      toast.info("Please login or create an account!");
+    }
+  };
+
   return (
     <div className="min-h-screen mt-16 bg-[var(--primary-bg-color)] p-2 md:p-8">
       <div className="max-w-6xl md:mx-auto mx-2">
@@ -36,11 +52,9 @@ export default function Cartpage() {
         </h1>
 
         {cartItems.length === 0 ? (
-          <div className="max-w-4xl mx-auto text-gray-600 py-16 mt-20 ">
-            <div className="">
-              <img src={empty} className="w-40 mx-auto  object-cover"/>
-              <p className="text-center">Still Your don't Select the any product</p>
-            </div>
+          <div className="max-w-4xl mx-auto text-gray-600 py-16 mt-20 text-center">
+            <img src={empty} className="w-40 mx-auto mb-4 object-cover" />
+            <p>Your cart is empty. Add some products.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -55,7 +69,7 @@ export default function Cartpage() {
                     <img
                       src={item.images?.[0]}
                       alt={item.title}
-                      className="md:w-20 w-16 h-16 md:h-16 object-cover rounded"
+                      className="md:w-20 w-16 h-16 object-cover rounded"
                     />
                     <div>
                       <Link
@@ -67,13 +81,13 @@ export default function Cartpage() {
                       <p className="md:text-sm text-xs text-gray-500">
                         Size: {item.size} | Color: {item.color}
                       </p>
-                      <p className="text-gray-600 text-xs dark:text-gray-400">
+                      <p className="text-gray-600 text-xs">
                         ৳{item.price} x {item.quantity}
                       </p>
                     </div>
                   </div>
 
-                  <div className="md:flex items-center gap-2 mt-1 md:basis-1/5 hidden">
+                  <div className="flex items-center gap-2">
                     <Button
                       variant="outline"
                       size="sm"
@@ -82,7 +96,7 @@ export default function Cartpage() {
                     >
                       -
                     </Button>
-                    <span className="px-2">{item.quantity}</span>
+                    <span>{item.quantity}</span>
                     <Button
                       variant="outline"
                       size="sm"
@@ -92,37 +106,15 @@ export default function Cartpage() {
                     </Button>
                   </div>
 
-                  <div className="flex items-center gap-1 md:basis-1/5 basis-1/4">
-                    <div className="flex flex-col text-center mt-7">
-                      <span className="text-base font-medium text-[var(--primary-text-color)]">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-[var(--primary-text-color)]">
                       ৳{(item.price * item.quantity).toFixed(2)}
-                      </span>
-
-                      <div className="flex items-center gap-1 mt-1 md:hidden">
-                          <Button
-                            variant="outline"
-                            className=" px-2"
-                            onClick={() => dispatch(decrementQuantity(item))}
-                            disabled={item.quantity === 1}
-                          >
-                            -
-                          </Button>
-                          <span className="px-2">{item.quantity}</span>
-                          <Button
-                            variant="outline"
-                            className=" px-2"
-                            onClick={() => dispatch(incrementQuantity(item))}
-                          >
-                            +
-                          </Button>
-                      </div>
-                    </div>
-
+                    </span>
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => handleRemove(item)}
-                      className=" absolute top-0 right-0 p-2 rounded-full bg-sky-100 m-1"
+                      className="bg-sky-100"
                     >
                       <Trash2 className="w-5 h-5 text-red-500" />
                     </Button>
@@ -137,7 +129,6 @@ export default function Cartpage() {
                 Order Summary
               </h2>
 
-              {/* Location Selector */}
               <div className="mb-4 text-sm text-[var(--primary-text-color)]">
                 <label className="block mb-1 font-medium">Delivery Location:</label>
                 <div className="space-y-2">
@@ -172,14 +163,14 @@ export default function Cartpage() {
                 <span>Shipping</span>
                 <span>৳{shippingCost}</span>
               </div>
-              <hr className="text-[var(--primary-text-color)] mb-4" />
+              <hr className="mb-4" />
               <div className="flex justify-between font-bold text-lg text-[var(--primary-text-color)]">
                 <span>Total</span>
                 <span>৳{(totalAmount + shippingCost).toFixed(2)}</span>
               </div>
               <Button
                 className="mt-6 w-full bg-sky-600 text-white hover:bg-sky-700"
-                onClick={() => toast.success("your order is porcess")}
+                onClick={()=>handleOrder()}
               >
                 Proceed to Checkout
               </Button>
@@ -187,6 +178,126 @@ export default function Cartpage() {
           </div>
         )}
       </div>
+
+      <OrderDetailsDialog
+        open={showDialog}
+        onClose={() => setShowDialog(false)}
+        cartItems={cartItems}
+        totalAmount={totalAmount}
+        shippingCost={shippingCost}
+      />
     </div>
+  );
+}
+
+function OrderDetailsDialog({ open, onClose, cartItems, totalAmount, shippingCost }) {
+  const [customerName, setCustomerName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [shippingAddress, setShippingAddress] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("cash");
+  const [isDhaka, setisDhaka] = useState(false)
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    if (!customerName || !phone || !shippingAddress) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
+    const payload = {
+      customerName,
+      phone,
+      shippingAddress,
+      paymentMethod,
+      isDhaka,
+      products: cartItems.map((item) => ({
+        productId: item.id,
+        quantity: item.quantity,
+      })),
+      totalAmount: totalAmount + shippingCost,
+    };
+
+    try {
+      await createOrder(payload).unwrap();
+      toast.success("Order placed successfully!");
+      dispatch({ type: "cart/clearCart" });
+      onClose();
+      navigate("/account");
+    } catch (err) {
+      toast.error(err?.data?.message || "Failed to place order");
+    }
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-lg bg-white">
+        <DialogHeader>
+          <DialogTitle>Complete Your Order</DialogTitle>
+        </DialogHeader>
+
+        <div className="space-y-3">
+          <input
+            type="text"
+            placeholder="Customer Name"
+            className="w-full border px-3 py-2 rounded"
+            value={customerName}
+            onChange={(e) => setCustomerName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Phone Number"
+            className="w-full border px-3 py-2 rounded"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <textarea
+            placeholder="Shipping Address"
+            className="w-full border px-3 py-2 rounded"
+            value={shippingAddress}
+            onChange={(e) => setShippingAddress(e.target.value)}
+          />
+
+          <div className="flex justify-between items-center">
+
+            <div>
+              <label className="block text-sm font-medium mb-1">In side Dhaka</label>
+              <select
+                value={isDhaka}
+                onChange={(e) => setisDhaka(e.target.value)}
+                className="w-full border px-3 py-2 rounded"
+              >
+                <option value="true">Yes</option>
+                <option value="flase">No</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Payment Method</label>
+              <select
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="w-full border px-3 py-2 rounded"
+              >
+                <option value="cash">Cash on Delivery</option>
+                <option value="Online">Online</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <DialogFooter className="mt-4">
+          <Button
+            onClick={handleSubmit}
+            disabled={isLoading}
+            className="w-full bg-sky-600 hover:bg-sky-700 text-white"
+          >
+            {isLoading ? "Placing Order..." : "Place Order"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

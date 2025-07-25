@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { Product } from "../models/product.model.js";
 import slugify from "slugify";
+import { upload } from "../middlewares/multer.js";
 
 // Get all products
 export const getProducts = async (req, res) => {
@@ -35,6 +36,7 @@ export const createProduct = async (req, res) => {
       discount,
       stock,
       category,
+      band,
       colors,
       sizes,
       madeIn
@@ -51,11 +53,15 @@ export const createProduct = async (req, res) => {
       description,
       price,
       discount,
+      band,
       stock,
       category,
       colors: colors ? colors.split(",").map(c => c.trim()) : [],
       sizes: sizes ? sizes.split(",").map(s => s.trim()) : [],
       madeIn,
+      isPopular:false,
+      isSuggested: false,
+      isBestSelling :false,
       images,
     });
 
@@ -68,24 +74,6 @@ export const createProduct = async (req, res) => {
 };
 
 
-// Update product (optional: add image update support)
-export const updateProduct = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const updatedData = req.body;
-
-    // If updating images, handle it here similarly
-
-    const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, { new: true });
-
-    if (!updatedProduct) return res.status(404).json({ message: "Product not found" });
-
-    res.json(updatedProduct);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
 
 // Delete product and all its images from public/uploads
 export const deleteProduct = async (req, res) => {
@@ -109,5 +97,87 @@ export const deleteProduct = async (req, res) => {
     res.json({ message: "Product and images deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+export const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      title,
+      description,
+      price,
+      discount,
+      stock,
+      category,
+      brand,
+      colors,
+      sizes,
+      madeIn,
+      isPopular,
+      isSuggested,
+      isBestSelling,
+      existingImages,
+    } = req.body;
+
+    // Convert string booleans to actual booleans
+    const boolIsPopular = isPopular === "true";
+    const boolIsSuggested = isSuggested === "true";
+    const boolIsBestSelling = isBestSelling === "true";
+
+    // Parse colors and sizes if sent as comma-separated strings
+    const colorsArray = colors ? colors.split(",").map((c) => c.trim()) : [];
+    const sizesArray = sizes ? sizes.split(",").map((s) => s.trim()) : [];
+
+    let existingImgsArray = [];
+    if (existingImages) {
+      if (Array.isArray(existingImages)) {
+        existingImgsArray = existingImages;
+      } else {
+        existingImgsArray = [existingImages];
+      }
+    }
+    const uploadedImages = req.files.map((file) => file.filename);
+    const finalImages = [...existingImgsArray, ...uploadedImages];
+
+    // Build updated data object
+    const updatedData = {
+      title,
+      description,
+      price: parseFloat(price),
+      discount: parseFloat(discount),
+      stock: parseInt(stock),
+      category,
+      brand,
+      colors: colorsArray,
+      sizes: sizesArray,
+      madeIn,
+      images: finalImages,
+      isPopular: boolIsPopular,
+      isSuggested: boolIsSuggested,
+      isBestSelling: boolIsBestSelling,
+    };
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
+
+    if (!updatedProduct)
+      return res.status(404).json({ message: "Product not found" });
+
+    return res.json(updatedProduct);
+  } catch (err) {
+    console.error(err);
+    return res.status(400).json({ error: err.message });
   }
 };

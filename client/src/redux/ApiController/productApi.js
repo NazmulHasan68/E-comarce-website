@@ -8,7 +8,7 @@ export const productApi = createApi({
     baseUrl: `${BASE_URL}/api/product`,
     credentials: "include",
   }),
-  tagTypes: ["product"], // tag for cache invalidation
+  tagTypes: ["product"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => "/",
@@ -22,17 +22,17 @@ export const productApi = createApi({
       query: (formData) => ({
         url: "/create",
         method: "POST",
-        body: formData, // FormData with fields + multiple images
+        body: formData,
       }),
       invalidatesTags: ["product"],
     }),
     updateProduct: builder.mutation({
-      query: ({ id, ...patch }) => ({
+      query: ({ id, formData }) => ({
         url: `/${id}`,
         method: "PUT",
-        body: patch,
+        body: formData,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: "product", id }],
+      invalidatesTags: ["product"],
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({

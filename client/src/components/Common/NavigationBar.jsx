@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Menu, X, LogOut, Sun, Moon, Home,
-  ShoppingCart, User, Heart
+  ShoppingCart, User, Heart,
+  Search
 } from "lucide-react";
 import Logo from "@/assets/logwith.png";
 import { motion } from "framer-motion";
@@ -66,6 +67,11 @@ export default function NavigationBar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6 text-sm lg:text-base">
+
+            <Link to="/filter" className="hover:text-sky-600  rounded-full mt-1 flex justify-center text-blue-600 dark:text-white">
+              <Search className="inline mr-1" size={18} /> 
+            </Link>
+
             <Link to="/" className="hover:text-sky-600 text-blue-600 dark:text-white">
               <Home className="inline mr-1" size={18} /> Home
             </Link>
@@ -129,9 +135,12 @@ export default function NavigationBar() {
 
           {/* Mobile Theme Toggle */}
           <div className="md:hidden flex items-center gap-4">
+            <Link to="/filter" className="hover:text-sky-600  rounded-full mt-1 flex justify-center text-blue-600 dark:text-white">
+              <Search className="inline mr-1" size={18} /> 
+            </Link>
             <button onClick={toggleTheme} className="text-sky-600 hover:text-rose-500">
               {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+            </button> 
           </div>
         </div>
       </nav>
@@ -141,7 +150,7 @@ export default function NavigationBar() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
-        className="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white dark:bg-slate-800 shadow-inner py-2 px-6 flex justify-between items-center"
+        className="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white dark:bg-slate-800 shadow-inner py-3 px-6 flex justify-between items-center"
       >
         <Link to="/" className="flex flex-col items-center text-sky-600">
           <Home size={22} />

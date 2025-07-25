@@ -30,7 +30,7 @@ export default function AdminLayout() {
         </aside>
 
         {/* Main Content */}
-        <main className="max-w-6xl mx-1 py-4 md:basis-3/4 h-screen overflow-auto">
+        <main className="max-w-7xl mx-1 py-4 md:basis-3/4 h-screen overflow-auto">
 
 
           <div className="flex items-center justify-between px-2 md:px-4 gap-2 mb-4">

@@ -31,6 +31,7 @@ import Admin_users from "./pages/Admin pages/Admin_users";
 import Admin_banner_ads from "./pages/Admin pages/Admin_banner_ads";
 import Admin_product_details from "./pages/Admin pages/Admin_product_details";
 import Admin_product_view from "./pages/Admin pages/Admin_product_view";
+import Admin_p_status_view from "./pages/Admin pages/Admin_p_status_view";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,7 @@ const router = createBrowserRouter([
           { path : "product_list" , element: <Admin_product_list/>},
           { path : "product_list/:productId", element:<Admin_product_details/>},
           { path : "pending_list" , element: <Admin_pending_list/>},
+          { path : "product_details/:productId", element : <Admin_p_status_view/>},
           { path : "proceing_list" , element: <Admin_process_list/>},
           { path : "delivered_list" , element: <Admin_delivered/>},
           { path : "completed_list" , element: <Admin_complete_list/>},

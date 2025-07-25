@@ -64,7 +64,7 @@ export default function HomeBanner() {
   };
 
   return (
-    <div className="relative max-w-6xl mx-auto md:mt-3 h-[25vh] md:h-[40vh] overflow-hidden rounded-sm md:rounded-xl ">
+    <div className="relative max-w-7xl mx-auto md:mt-3 h-[25vh] md:h-[40vh] overflow-hidden rounded-sm md:rounded-xl ">
       <Slider {...settings}>
         {slides.map(slide => (
           <div key={slide.id} className="relative">

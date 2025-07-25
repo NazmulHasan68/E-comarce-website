@@ -15,11 +15,11 @@ export const createOrder = async (req, res) => {
       isDhaka,
     } = req.body;
 
-    if (!customerName || !phone || !shippingAddress || !products?.length || !totalAmount || !isDhaka) {
+    if (!customerName || !phone || !shippingAddress || !Array.isArray(products) || !products.length || !totalAmount) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // Convert productId to ObjectId instances
+    // Convert and validate product IDs
     const formattedProducts = products.map(p => {
       if (!mongoose.Types.ObjectId.isValid(p.productId)) {
         throw new Error(`Invalid productId: ${p.productId}`);
@@ -36,7 +36,7 @@ export const createOrder = async (req, res) => {
       shippingAddress,
       products: formattedProducts,
       totalAmount,
-      user: req.id,
+      user: req.id, // Make sure this comes from verified middleware
       isDhaka,
       paymentMethod: paymentMethod || "cash",
     });
@@ -49,13 +49,16 @@ export const createOrder = async (req, res) => {
   }
 };
 
-
-// Get all orders (admin)
+// Get All Orders (Admin)
 export const getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find().populate("user", "name email");
+    const orders = await Order.find()
+      .populate("user", "name phone")
+      .populate("products", "title price image");
+
     res.json(orders);
   } catch (error) {
+    console.error("Get Orders Error:", error);
     res.status(500).json({ message: "Failed to fetch orders" });
   }
 };
